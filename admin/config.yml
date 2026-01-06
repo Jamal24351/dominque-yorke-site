@@ -27,6 +27,13 @@ collections:
           - { label: "Contact Address", name: "contactAddress", widget: "string" }
           - { label: "Contact Phone", name: "contactPhone", widget: "string" }
           - { label: "Contact Email", name: "contactEmail", widget: "string" }
+          - { label: "Hero Background Image", name: "heroBackground", widget: "image" }
+          - { label: "Candidate Photo", name: "candidatePhoto", widget: "image" }
+          - { label: "Facebook URL", name: "facebookUrl", widget: "string", required: false }
+          - { label: "Instagram URL", name: "instagramUrl", widget: "string", required: false }
+          - { label: "Twitter/X URL", name: "twitterUrl", widget: "string", required: false }
+          - { label: "TikTok URL", name: "tiktokUrl", widget: "string", required: false }
+          - { label: "Donate / Get Involved Link", name: "donateUrl", widget: "string", required: false }
 
       - label: "Events"
         name: "events"
@@ -54,4 +61,5 @@ collections:
             fields:
               - { label: "Image", name: "imageUrl", widget: "image" }
               - { label: "Caption", name: "caption", widget: "string", required: false }
+
 
