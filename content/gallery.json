@@ -1,3 +1,7 @@
-[
-  { "imageUrl": "https://picsum.photos/seed/pol1/600/800", "caption": "Listening to Voters" }
-]
+{
+  "images": [
+    { "imageUrl": "https://picsum.photos/seed/pol1/600/800", "caption": "Listening to Voters" },
+    { "imageUrl": "https://picsum.photos/seed/pol2/600/400", "caption": "Community Meeting" },
+    { "imageUrl": "https://picsum.photos/seed/pol3/600/600", "caption": "Volunteers" }
+  ]
+}
