@@ -1,984 +1,954 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dominque Yorke | Friends of Democracy</title>
-    <!-- Premium Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        /* --- Design Tokens & Variables --- */
-        :root {
-            /* Palette */
-            --color-purple-deep: #4a148c;   /* Deep Royal Purple */
-            --color-purple-light: #7c43bd;  /* Lighter Purple */
-            --color-green-vibrant: #00c853; /* Vibrant Green */
-            --color-green-dark: #1b5e20;    /* Forest Green */
-            --color-dark: #121212;
-            --color-light: #f8f9fa;
-            --color-white: #ffffff;
-            
-            /* Gradients */
-            --gradient-main: linear-gradient(135deg, var(--color-purple-deep), var(--color-green-vibrant));
-            --gradient-text: linear-gradient(to right, var(--color-purple-deep), var(--color-green-dark));
-            
-            /* UI Elements */
-            --radius-lg: 20px;
-            --radius-pill: 50px;
-            --shadow-soft: 0 10px 40px rgba(0,0,0,0.08);
-            --shadow-hover: 0 20px 40px rgba(74, 20, 140, 0.15);
-            
-            /* Transitions */
-            --ease: cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        /* --- Reset & Base Styles --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            background-color: var(--color-light);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            color: var(--color-dark);
-            line-height: 1.2;
-        }
-
-        a { text-decoration: none; color: inherit; transition: all 0.3s var(--ease); }
-        ul { list-style: none; }
-        img { max-width: 100%; display: block; }
-
-        /* --- Typography Utilities --- */
-        .text-gradient {
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-header h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(74, 20, 140, 0.1);
-            color: var(--color-purple-deep);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        /* --- Navigation --- */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.2rem 0;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
-        }
-
-        .nav-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--color-purple-deep);
-        }
-
-        .brand-party {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--color-green-vibrant);
-            font-weight: 600;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--color-dark);
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--gradient-main);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover { color: var(--color-purple-deep); }
-        .nav-link:hover::after { width: 100%; }
-
-        .btn-donate {
-            background: var(--gradient-main);
-            color: white !important;
-            padding: 10px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(74, 20, 140, 0.3);
-        }
-
-        .btn-donate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(74, 20, 140, 0.4);
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            position: relative;
-            height: 100vh;
-            min-height: 700px;
-            display: flex;
-            align-items: center;
-            background: url('https://picsum.photos/seed/politic2/1920/1080') no-repeat center center/cover;
-            background-attachment: fixed;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(18,18,18,0.9) 0%, rgba(18,18,18,0.6) 50%, rgba(18,18,18,0.2) 100%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            width: 100%;
-            color: white;
-        }
-
-        .hero-content h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
-
-        .hero-content p {
-            font-size: 1.3rem;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            color: rgba(255,255,255,0.9);
-            font-weight: 300;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 14px 35px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s var(--ease);
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--color-purple-light);
-            color: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .btn-primary:hover {
-            background: var(--color-purple-deep);
-            transform: translateY(-3px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--color-purple-deep);
-        }
-
-        /* --- About Section --- */
-        .about {
-            padding: 8rem 2rem;
-            background: white;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 5rem;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .about-img-wrapper {
-            position: relative;
-        }
-
-        .about-img {
-            border-radius: var(--radius-lg);
-            box-shadow: 20px 20px 0 var(--color-green-vibrant);
-            width: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover {
-            transform: scale(1.02);
-        }
-
-        .about-content h3 {
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 1.5rem;
-        }
-
-        .about-content h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-main);
-        }
-
-        .about-content p {
-            color: #555;
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-        }
-
-        .signature {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--color-purple-deep);
-            margin-top: 2rem;
-        }
-
-        /* --- Manifesto --- */
-        .manifesto {
-            padding: 8rem 2rem;
-            background: #f3f4f6;
-        }
-
-        .manifesto-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: var(--radius-lg);
-            border: 1px solid rgba(0,0,0,0.03);
-            transition: all 0.4s var(--ease);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background: var(--gradient-main);
-            z-index: -1;
-            transition: height 0.4s var(--ease);
-            opacity: 0.05;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .card:hover::before {
-            height: 100%;
-        }
-
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(74, 20, 140, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--color-purple-deep);
-            margin-bottom: 1.5rem;
-            transition: background 0.3s;
-        }
-
-        .card:hover .card-icon {
-            background: var(--color-white);
-        }
-
-        .card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-        }
-
-        .card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        /* --- Events --- */
-        .events {
-            padding: 8rem 2rem;
-            background: white;
-        }
-
-        .events-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .event-item {
-            display: flex;
-            background: white;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .event-item:hover {
-            transform: scale(1.01);
-        }
-
-        .event-date-box {
-            background: var(--color-purple-deep);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-width: 120px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .event-date-box .day { font-size: 2.5rem; font-weight: 700; line-height: 1; font-family: 'Playfair Display', serif; }
-        .event-date-box .month { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-top: 5px; }
-
-        .event-info {
-            padding: 2rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .event-meta {
-            display: flex;
-            gap: 20px;
-            color: var(--color-green-vibrant);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .event-title {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--color-dark);
-        }
-
-        /* --- Gallery (Masonry) --- */
-        .gallery {
-            padding: 8rem 2rem;
-            background: #121212;
-            color: white;
-        }
-
-        .gallery .section-header h2, 
-        .gallery .section-header p {
-            color: white;
-        }
-
-        .gallery-masonry {
-            column-count: 3;
-            column-gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .masonry-item img {
-            width: 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .masonry-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(74, 20, 140, 0.8), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: flex-end;
-            padding: 20px;
-        }
-
-        .masonry-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .masonry-item:hover .masonry-overlay {
-            opacity: 1;
-        }
-
-        /* --- Contact --- */
-        .contact {
-            padding: 8rem 2rem;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(135deg, #f3f4f6 0%, #e8eaf6 100%);
-        }
-
-        .contact-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: white;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-hover);
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            overflow: hidden;
-        }
-
-        .contact-sidebar {
-            background: var(--gradient-main);
-            padding: 3rem;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .contact-sidebar h3 {
-            color: white;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-detail {
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .contact-detail i {
-            font-size: 1.2rem;
-            background: rgba(255,255,255,0.2);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-form-area {
-            padding: 3rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: #fcfcfc;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--color-purple-deep);
-            background: white;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: var(--color-dark);
-            color: #888;
-            padding: 4rem 2rem 1rem;
-        }
-
-        .footer-grid {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand h2 {
-            color: white;
-            margin-bottom: 1rem;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .footer-brand span {
-            color: var(--color-green-vibrant);
-        }
-
-        .social-icons a {
-            color: white;
-            margin-right: 15px;
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: var(--color-green-vibrant);
-        }
-
-        .footer-links h4 {
-            color: white;
-            margin-bottom: 1.5rem;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .footer-links ul li { margin-bottom: 10px; }
-        .footer-links ul li a:hover { color: var(--color-green-vibrant); padding-left: 5px; }
-
-        .footer-bottom {
-            border-top: 1px solid #333;
-            padding-top: 1.5rem;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 968px) {
-            .hero-content h1 { font-size: 3rem; }
-            .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
-            .about-img-wrapper { margin-bottom: 2rem; }
-            .gallery-masonry { column-count: 2; }
-            .nav-menu { display: none; } /* Simplified for static demo */
-            .navbar { padding: 1rem; }
-            .contact-sidebar { display: none; } /* Hide sidebar on small mobile for simplicity */
-        }
-
-        @media (max-width: 576px) {
-            .hero-content h1 { font-size: 2.2rem; }
-            .event-item { flex-direction: column; }
-            .event-date-box { flex-direction: row; gap: 10px; padding: 10px; min-width: auto; }
-            .gallery-masonry { column-count: 1; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dominque Yorke | Friends of Democracy</title>
+
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- FontAwesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <style>
+    /* --- Design Tokens & Variables --- */
+    :root {
+      /* Palette */
+      --color-purple-deep: #4a148c;   /* Deep Royal Purple */
+      --color-purple-light: #7c43bd;  /* Lighter Purple */
+      --color-green-vibrant: #00c853; /* Vibrant Green */
+      --color-green-dark: #1b5e20;    /* Forest Green */
+      --color-dark: #121212;
+      --color-light: #f8f9fa;
+      --color-white: #ffffff;
+
+      /* Gradients */
+      --gradient-main: linear-gradient(135deg, var(--color-purple-deep), var(--color-green-vibrant));
+      --gradient-text: linear-gradient(to right, var(--color-purple-deep), var(--color-green-dark));
+
+      /* UI Elements */
+      --radius-lg: 20px;
+      --radius-pill: 50px;
+      --shadow-soft: 0 10px 40px rgba(0,0,0,0.08);
+      --shadow-hover: 0 20px 40px rgba(74, 20, 140, 0.15);
+
+      /* Transitions */
+      --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* --- Reset & Base Styles --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background-color: var(--color-light);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--color-dark);
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.3s var(--ease); }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* --- Typography Utilities --- */
+    .text-gradient {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 900;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-header h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(74, 20, 140, 0.1);
+      color: var(--color-purple-deep);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    /* --- Navigation --- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.2rem 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.4s ease;
+    }
+
+    .nav-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand { display: flex; flex-direction: column; }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--color-purple-deep);
+    }
+
+    .brand-party {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-green-vibrant);
+      font-weight: 600;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--color-dark);
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: var(--gradient-main);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover { color: var(--color-purple-deep); }
+    .nav-link:hover::after { width: 100%; }
+
+    .btn-donate {
+      background: var(--gradient-main);
+      color: white !important;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(74, 20, 140, 0.3);
+    }
+
+    .btn-donate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(74, 20, 140, 0.4);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      background: url('https://picsum.photos/seed/politic2/1920/1080') no-repeat center center/cover;
+      background-attachment: fixed;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(18,18,18,0.9) 0%, rgba(18,18,18,0.6) 50%, rgba(18,18,18,0.2) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+      color: white;
+    }
+
+    .hero-content h1 {
+      font-size: 4.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 300;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 14px 35px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-purple-light);
+      color: white;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-purple-deep);
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--color-purple-deep);
+    }
+
+    /* --- About Section --- */
+    .about {
+      padding: 8rem 2rem;
+      background: white;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-img-wrapper { position: relative; }
+
+    .about-img {
+      border-radius: var(--radius-lg);
+      box-shadow: 20px 20px 0 var(--color-green-vibrant);
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .about-img:hover { transform: scale(1.02); }
+
+    .about-content h3 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+
+    .about-content h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--gradient-main);
+    }
+
+    .about-content p {
+      color: #555;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .signature {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--color-purple-deep);
+      margin-top: 2rem;
+    }
+
+    /* --- Manifesto --- */
+    .manifesto {
+      padding: 8rem 2rem;
+      background: #f3f4f6;
+    }
+
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(0,0,0,0.03);
+      transition: all 0.4s var(--ease);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: var(--gradient-main);
+      z-index: -1;
+      transition: height 0.4s var(--ease);
+      opacity: 0.05;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card:hover::before { height: 100%; }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(74, 20, 140, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--color-purple-deep);
+      margin-bottom: 1.5rem;
+      transition: background 0.3s;
+    }
+
+    .card:hover .card-icon { background: var(--color-white); }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    /* --- Events --- */
+    .events {
+      padding: 8rem 2rem;
+      background: white;
+    }
+
+    .events-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .event-item {
+      display: flex;
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .event-item:hover { transform: scale(1.01); }
+
+    .event-date-box {
+      background: var(--color-purple-deep);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 120px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .event-date-box .day {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .event-date-box .month {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    .event-info {
+      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .event-meta {
+      display: flex;
+      gap: 20px;
+      color: var(--color-green-vibrant);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .event-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--color-dark);
+    }
+
+    /* --- Gallery (Masonry) --- */
+    .gallery {
+      padding: 8rem 2rem;
+      background: #121212;
+      color: white;
+    }
+
+    .gallery .section-header h2,
+    .gallery .section-header p { color: white; }
+
+    .gallery-masonry {
+      column-count: 3;
+      column-gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      transition: transform 0.5s ease;
+    }
+
+    .masonry-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to top, rgba(74, 20, 140, 0.8), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .masonry-item:hover img { transform: scale(1.1); }
+    .masonry-item:hover .masonry-overlay { opacity: 1; }
+
+    /* --- Contact --- */
+    .contact {
+      padding: 8rem 2rem;
+      background: url('https://www.transparenttextures.com/patterns/cubes.png'),
+        linear-gradient(135deg, #f3f4f6 0%, #e8eaf6 100%);
+    }
+
+    .contact-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-hover);
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      overflow: hidden;
+    }
+
+    .contact-sidebar {
+      background: var(--gradient-main);
+      padding: 3rem;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-sidebar h3 {
+      color: white;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-detail {
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .contact-detail i {
+      font-size: 1.2rem;
+      background: rgba(255,255,255,0.2);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-form-area { padding: 3rem; }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s;
+      background: #fcfcfc;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-purple-deep);
+      background: white;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: var(--color-dark);
+      color: #888;
+      padding: 4rem 2rem 1rem;
+    }
+
+    .footer-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h2 {
+      color: white;
+      margin-bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .footer-brand span { color: var(--color-green-vibrant); }
+
+    .social-icons a {
+      color: white;
+      margin-right: 15px;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover { color: var(--color-green-vibrant); }
+
+    .footer-links h4 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+    }
+
+    .footer-links ul li { margin-bottom: 10px; }
+    .footer-links ul li a:hover { color: var(--color-green-vibrant); padding-left: 5px; }
+
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 968px) {
+      .hero-content h1 { font-size: 3rem; }
+      .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
+      .about-img-wrapper { margin-bottom: 2rem; }
+      .gallery-masonry { column-count: 2; }
+      .nav-menu { display: none; } /* Simplified for static demo */
+      .navbar { padding: 1rem; }
+      .contact-sidebar { display: none; } /* Hide sidebar on small mobile for simplicity */
+    }
+
+    @media (max-width: 576px) {
+      .hero-content h1 { font-size: 2.2rem; }
+      .event-item { flex-direction: column; }
+      .event-date-box { flex-direction: row; gap: 10px; padding: 10px; min-width: auto; }
+      .gallery-masonry { column-count: 1; }
+    }
+  </style>
 </head>
+
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="brand">
-                <span class="brand-name">Dominque Yorke</span>
-                <span class="brand-party">Friends of Democracy</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#manifesto" class="nav-link">Vision</a></li>
-                <li><a href="#events" class="nav-link">Events</a></li>
-                <li><a href="#contact" class="btn-donate">Get Involved</a></li>
-            </ul>
-        </div>
-    </nav>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <span class="brand-name" id="candidateNameBrand">Dominque Yorke</span>
+        <span class="brand-party" id="partyBrand">Friends of Democracy</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#manifesto" class="nav-link">Vision</a></li>
+        <li><a href="#events" class="nav-link">Events</a></li>
+        <li><a href="#contact" class="btn-donate">Get Involved</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <span class="badge" style="color:white; background:var(--color-green-dark);">Christ Church East Central</span>
-            <h1>A Voice for <br><span style="color:var(--color-green-vibrant)">Real Change</span></h1>
-            <p>Dominque Yorke is running to restore integrity, build opportunity, and unite our community under the banner of the Friends of Democracy.</p>
-            <div class="hero-btns">
-                <a href="#contact" class="btn btn-primary">Join the Movement</a>
-                <a href="#manifesto" class="btn btn-outline">Read the Manifesto</a>
-            </div>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="badge" id="heroKicker" style="color:white; background:var(--color-green-dark);">
+        Christ Church East Central
+      </span>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-grid">
-            <div class="about-img-wrapper">
-                <!-- Placeholder: Replace with actual photo of Dominque -->
-                <img src="https://picsum.photos/seed/dominque_yorke/800/900" alt="Dominque Yorke" class="about-img">
-            </div>
-            <div class="about-content">
-                <div class="section-header" style="text-align: left; margin: 0;">
-                    <span class="badge">The Candidate</span>
-                    <h3>Meet Dominque Yorke</h3>
-                </div>
-                <p>
-                    Born and raised in Barbados, Dominque Yorke isn't just a politician—she is a mother, a community advocate, and a fierce defender of democratic values.
-                </p>
-                <p>
-                    For over a decade, she has worked tirelessly on the ground in Christ Church East Central, listening to families and fighting for the resources they deserve. Now, as the representative for the <strong>Friends of Democracy</strong>, she is ready to take that fight to Parliament.
-                </p>
-                <p>
-                    Her vision is simple: A government that listens, an economy that works for everyone, and a community that leaves no one behind.
-                </p>
-                <div class="signature">Dominque Yorke</div>
-            </div>
-        </div>
-    </section>
+      <h1>
+        <span id="heroTitleLine1">A Voice for</span> <br />
+        <span style="color:var(--color-green-vibrant)" id="heroTitleLine2">Real Change</span>
+      </h1>
 
-    <!-- Manifesto / Vision Section -->
-    <section class="manifesto" id="manifesto">
-        <div class="section-header">
-            <span class="badge">Our Vision</span>
-            <h2 class="text-gradient">Building the Future</h2>
-            <p>Concrete solutions for the challenges we face today.</p>
+      <p id="heroSubtitle">
+        Dominque Yorke is running to restore integrity, build opportunity, and unite our community under the banner of the Friends of Democracy.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Join the Movement</a>
+        <a href="#manifesto" class="btn btn-outline">Read the Manifesto</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-img-wrapper">
+        <!-- Placeholder: Replace with actual photo of Dominque -->
+        <img
+          src="https://picsum.photos/seed/dominque_yorke/800/900"
+          alt="Dominque Yorke"
+          class="about-img"
+        />
+      </div>
+
+      <div class="about-content">
+        <div class="section-header" style="text-align: left; margin: 0;">
+          <span class="badge">The Candidate</span>
+          <h3 id="aboutHeading">Meet Dominque Yorke</h3>
         </div>
 
-        <div class="manifesto-grid">
-            <!-- Card 1 -->
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>Economic Renewal</h3>
-                <p>Empowering small businesses and creating green jobs through targeted tax relief and infrastructure investment.</p>
-            </div>
-            <!-- Card 2 -->
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
-                <h3>Youth & Education</h3>
-                <p>Modernizing our schools and providing vocational training to ensure every young person has a path to success.</p>
-            </div>
-            <!-- Card 3 -->
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
-                <h3>Sustainability</h3>
-                <p>Protecting our natural heritage with a bold plan for renewable energy and waste reduction.</p>
-            </div>
-            <!-- Card 4 -->
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-                <h3>Justice & Safety</h3>
-                <p>Reforming our justice system and increasing community policing to keep our neighborhoods safe.</p>
-            </div>
-            <!-- Card 5 -->
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-house-medical"></i></div>
-                <h3>Healthcare Access</h3>
-                <p>Fighting for affordable prescription drugs and reduced wait times at local polyclinics.</p>
-            </div>
-            <!-- Card 6 -->
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-users"></i></div>
-                <h3>Transparency</h3>
-                <p>Upholding the core values of the Friends of Democracy by ensuring every dollar of public money is accounted for.</p>
-            </div>
+        <p id="aboutP1">
+          Born and raised in Barbados, Dominque Yorke isn't just a politician—she is a mother, a community advocate, and a fierce defender of democratic values.
+        </p>
+
+        <p id="aboutP2">
+          For over a decade, she has worked tirelessly on the ground in Christ Church East Central, listening to families and fighting for the resources they deserve. Now, as the representative for the <strong>Friends of Democracy</strong>, she is ready to take that fight to Parliament.
+        </p>
+
+        <p id="aboutP3">
+          Her vision is simple: A government that listens, an economy that works for everyone, and a community that leaves no one behind.
+        </p>
+
+        <div class="signature" id="signatureName">Dominque Yorke</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Manifesto / Vision Section -->
+  <section class="manifesto" id="manifesto">
+    <div class="section-header">
+      <span class="badge">Our Vision</span>
+      <h2 class="text-gradient">Building the Future</h2>
+      <p>Concrete solutions for the challenges we face today.</p>
+    </div>
+
+    <div class="manifesto-grid">
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <h3>Economic Renewal</h3>
+        <p>Empowering small businesses and creating green jobs through targeted tax relief and infrastructure investment.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+        <h3>Youth & Education</h3>
+        <p>Modernizing our schools and providing vocational training to ensure every young person has a path to success.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+        <h3>Sustainability</h3>
+        <p>Protecting our natural heritage with a bold plan for renewable energy and waste reduction.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+        <h3>Justice & Safety</h3>
+        <p>Reforming our justice system and increasing community policing to keep our neighborhoods safe.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-house-medical"></i></div>
+        <h3>Healthcare Access</h3>
+        <p>Fighting for affordable prescription drugs and reduced wait times at local polyclinics.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+        <h3>Transparency</h3>
+        <p>Upholding the core values of the Friends of Democracy by ensuring every dollar of public money is accounted for.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section class="events" id="events">
+    <div class="section-header">
+      <span class="badge">On The Trail</span>
+      <h2 class="text-gradient">Upcoming Events</h2>
+      <p>Come out and meet the team. Your voice matters.</p>
+    </div>
+
+    <!-- NOTE: JS will replace the inner HTML of this container -->
+    <div class="events-container" id="eventsList">
+      <!-- (Optional) Fallback content if JS fails -->
+      <div class="event-item">
+        <div class="event-date-box">
+          <span class="day">15</span>
+          <span class="month">Nov</span>
         </div>
-    </section>
-
-    <!-- Events Section -->
-    <section class="events" id="events">
-        <div class="section-header">
-            <span class="badge">On The Trail</span>
-            <h2 class="text-gradient">Upcoming Events</h2>
-            <p>Come out and meet the team. Your voice matters.</p>
+        <div class="event-info">
+          <div class="event-meta">
+            <i class="fa-regular fa-clock"></i> 6:00 PM &nbsp;|&nbsp;
+            <i class="fa-solid fa-location-dot"></i> St. George's Hall
+          </div>
+          <h3 class="event-title">Constituency Town Hall</h3>
+          <p>A discussion on housing rights and community development. Free entry for all residents.</p>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="events-container">
-            <!-- Event 1 -->
-            <div class="event-item">
-                <div class="event-date-box">
-                    <span class="day">15</span>
-                    <span class="month">Nov</span>
-                </div>
-                <div class="event-info">
-                    <div class="event-meta">
-                        <i class="fa-regular fa-clock"></i> 6:00 PM &nbsp;|&nbsp; 
-                        <i class="fa-solid fa-location-dot"></i> St. George's Hall
-                    </div>
-                    <h3 class="event-title">Constituency Town Hall</h3>
-                    <p>A discussion on housing rights and community development. Free entry for all residents.</p>
-                </div>
-            </div>
+  <!-- Gallery Section -->
+  <section class="gallery" id="gallery">
+    <div class="section-header">
+      <span class="badge">Moments</span>
+      <h2>The Campaign Trail</h2>
+    </div>
 
-            <!-- Event 2 -->
-            <div class="event-item">
-                <div class="event-date-box">
-                    <span class="day">22</span>
-                    <span class="month">Nov</span>
-                </div>
-                <div class="event-info">
-                    <div class="event-meta">
-                        <i class="fa-regular fa-clock"></i> 10:00 AM &nbsp;|&nbsp; 
-                        <i class="fa-solid fa-location-dot"></i> Oistins Bay Gardens
-                    </div>
-                    <h3 class="event-title">Fish Fry Meet & Greet</h3>
-                    <p>Join Dominque for food, music, and conversation. Let's talk about the future of our tourism industry.</p>
-                </div>
-            </div>
+    <!-- NOTE: JS will replace the inner HTML of this container -->
+    <div class="gallery-masonry" id="galleryList">
+      <!-- (Optional) Fallback content if JS fails -->
+      <div class="masonry-item">
+        <img src="https://picsum.photos/seed/pol1/600/800" alt="Event">
+        <div class="masonry-overlay"><h4>Listening to Voters</h4></div>
+      </div>
+    </div>
+  </section>
 
-            <!-- Event 3 -->
-            <div class="event-item">
-                <div class="event-date-box">
-                    <span class="day">05</span>
-                    <span class="month">Dec</span>
-                </div>
-                <div class="event-info">
-                    <div class="event-meta">
-                        <i class="fa-regular fa-clock"></i> 4:00 PM &nbsp;|&nbsp; 
-                        <i class="fa-solid fa-location-dot"></i> Enterprise Coast Road
-                    </div>
-                    <h3 class="event-title">Campaign Rally Launch</h3>
-                    <p>The official launch of the Friends of Democracy campaign for Christ Church East Central. Be there!</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="section-header">
+      <span class="badge">Get Involved</span>
+      <h2 class="text-gradient">Join the Cause</h2>
+    </div>
 
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="section-header">
-            <span class="badge">Moments</span>
-            <h2>The Campaign Trail</h2>
-        </div>
-        
-        <div class="gallery-masonry">
-            <!-- Using random seeds for variety -->
-            <div class="masonry-item">
-                <img src="https://picsum.photos/seed/pol1/600/800" alt="Event">
-                <div class="masonry-overlay"><h4>Listening to Voters</h4></div>
-            </div>
-            <div class="masonry-item">
-                <img src="https://picsum.photos/seed/pol2/600/400" alt="Event">
-                <div class="masonry-overlay"><h4>Community Meeting</h4></div>
-            </div>
-            <div class="masonry-item">
-                <img src="https://picsum.photos/seed/pol3/600/600" alt="Event">
-                <div class="masonry-overlay"><h4>Volunteers</h4></div>
-            </div>
-            <div class="masonry-item">
-                <img src="https://picsum.photos/seed/pol4/600/900" alt="Event">
-                <div class="masonry-overlay"><h4>Youth Summit</h4></div>
-            </div>
-            <div class="masonry-item">
-                <img src="https://picsum.photos/seed/pol5/600/500" alt="Event">
-                <div class="masonry-overlay"><h4>Door to Door</h4></div>
-            </div>
-            <div class="masonry-item">
-                <img src="https://picsum.photos/seed/pol6/600/700" alt="Event">
-                <div class="masonry-overlay"><h4>Rally Speech</h4></div>
-            </div>
-        </div>
-    </section>
+    <div class="contact-wrapper">
+      <div class="contact-sidebar">
+        <div>
+          <h3>Contact Us</h3>
+          <p style="margin-bottom: 2rem; opacity: 0.9;">
+            We are building a movement. Whether you want to volunteer, donate, or just ask a question, we are here to help.
+          </p>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="section-header">
-            <span class="badge">Get Involved</span>
-            <h2 class="text-gradient">Join the Cause</h2>
+          <div class="contact-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="contactAddress">123 Main St, Christ Church<br>Barbados</span>
+          </div>
+
+          <div class="contact-detail">
+            <i class="fa-solid fa-phone"></i>
+            <span id="contactPhone">+1 (246) 555-0199</span>
+          </div>
+
+          <div class="contact-detail">
+            <i class="fa-solid fa-envelope"></i>
+            <span id="contactEmail">hello@friendsofdemocracy.bb</span>
+          </div>
         </div>
 
-        <div class="contact-wrapper">
-            <div class="contact-sidebar">
-                <div>
-                    <h3>Contact Us</h3>
-                    <p style="margin-bottom: 2rem; opacity: 0.9;">We are building a movement. Whether you want to volunteer, donate, or just ask a question, we are here to help.</p>
-                    
-                    <div class="contact-detail">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span>123 Main St, Christ Church<br>Barbados</span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>+1 (246) 555-0199</span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>hello@friendsofdemocracy.bb</span>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 3rem;">
-                    <h4 style="color: white; margin-bottom: 1rem;">Follow the Campaign</h4>
-                    <div class="social-icons" style="margin-left: -5px;">
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form-area">
-                <form onsubmit="event.preventDefault(); alert('Thank you for contacting Friends of Democracy! We will be in touch.');">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div class="form-group">
-                            <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">First Name</label>
-                            <input type="text" class="form-control" placeholder="Jane" required>
-                        </div>
-                        <div class="form-group">
-                            <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Last Name</label>
-                            <input type="text" class="form-control" placeholder="Doe" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Email Address</label>
-                        <input type="email" class="form-control" placeholder="jane@example.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Subject</label>
-                        <select class="form-control">
-                            <option>I want to Volunteer</option>
-                            <option>I want to Donate</option>
-                            <option>General Inquiry</option>
-                            <option>Media Request</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Message</label>
-                        <textarea class="form-control" rows="4" placeholder="How would you like to help?"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-                </form>
-            </div>
+        <div style="margin-top: 3rem;">
+          <h4 style="color: white; margin-bottom: 1rem;">Follow the Campaign</h4>
+          <div class="social-icons" style="margin-left: -5px;">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h2>Dominque <span>Yorke</span></h2>
-                <p>Friends of Democracy</p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; line-height: 1.8;">
-                    Fighting for transparency, accountability, and progress in Christ Church East Central. Together, we can build a better future.
-                </p>
+      <div class="contact-form-area">
+        <form onsubmit="event.preventDefault(); alert('Thank you for contacting Friends of Democracy! We will be in touch.');">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+              <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">First Name</label>
+              <input type="text" class="form-control" placeholder="Jane" required />
             </div>
-            
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#about">About Dominque</a></li>
-                    <li><a href="#manifesto">Our Manifesto</a></li>
-                    <li><a href="#events">Upcoming Events</a></li>
-                    <li><a href="#contact">Volunteer</a></li>
-                </ul>
+            <div class="form-group">
+              <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Last Name</label>
+              <input type="text" class="form-control" placeholder="Doe" required />
             </div>
-            
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Donate</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 Friends of Democracy. All Rights Reserved. Paid for by the Yorke Campaign Committee.</p>
-        </div>
-    </footer>
+          </div>
 
+          <div class="form-group">
+            <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Email Address</label>
+            <input type="email" class="form-control" placeholder="jane@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Subject</label>
+            <select class="form-control">
+              <option>I want to Volunteer</option>
+              <option>I want to Donate</option>
+              <option>General Inquiry</option>
+              <option>Media Request</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label style="display:block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Message</label>
+            <textarea class="form-control" rows="4" placeholder="How would you like to help?"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>Dominque <span>Yorke</span></h2>
+        <p>Friends of Democracy</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; line-height: 1.8;">
+          Fighting for transparency, accountability, and progress in Christ Church East Central. Together, we can build a better future.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Dominque</a></li>
+          <li><a href="#manifesto">Our Manifesto</a></li>
+          <li><a href="#events">Upcoming Events</a></li>
+          <li><a href="#contact">Volunteer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2023 Friends of Democracy. All Rights Reserved. Paid for by the Yorke Campaign Committee.</p>
+    </div>
+  </footer>
+
+  <!-- ✅ Load editable content from /content/*.json -->
+  <script src="/assets/js/content.js"></script>
 </body>
 </html>
