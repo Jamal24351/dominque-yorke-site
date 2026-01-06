@@ -19,6 +19,28 @@ function dayNum(dateStr) {
   return d.getDate();
 }
 
+function setHref(id, url) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!url) return;
+  el.setAttribute("href", url);
+}
+
+function setImageSrc(id, url) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!url) return;
+  el.setAttribute("src", url);
+}
+
+function setHeroBackground(url) {
+  const hero = document.querySelector(".hero");
+  if (!hero || !url) return;
+  hero.style.backgroundImage = `url('${url}')`;
+  hero.style.backgroundPosition = "center";
+  hero.style.backgroundSize = "cover";
+  hero.style.backgroundRepeat = "no-repeat";
+}
 (async function init() {
   try {
     const settings = await loadJSON("/content/settings.json");
