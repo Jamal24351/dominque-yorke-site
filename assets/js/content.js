@@ -23,10 +23,10 @@ function dayNum(dateStr) {
   try {
     const settings = await loadJSON("/content/settings.json");
     const eventsData = await loadJSON("/content/events.json");
-const galleryData = await loadJSON("/content/gallery.json");
+    const galleryData = await loadJSON("/content/gallery.json");
 
-const events = eventsData.events || [];
-const gallery = galleryData.images || [];
+    const events = eventsData.events || [];
+    const gallery = galleryData.images || [];
 
     // Top brand
     setText("candidateNameBrand", settings.candidateName);
