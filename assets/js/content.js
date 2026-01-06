@@ -71,6 +71,17 @@ function setHeroBackground(url) {
     setText("contactAddress", settings.contactAddress);
     setText("contactPhone", settings.contactPhone);
     setText("contactEmail", settings.contactEmail);
+    
+    // Images
+    setHeroBackground(settings.heroBackground);
+    setImageSrc("candidatePhotoImg", settings.candidatePhoto);
+    
+    // Links
+    setHref("facebookLink", settings.facebookUrl);
+    setHref("instagramLink", settings.instagramUrl);
+    setHref("twitterLink", settings.twitterUrl);
+    setHref("tiktokLink", settings.tiktokUrl);
+    setHref("donateLink", settings.donateUrl);
 
     // Events (render)
     const eventsWrap = document.getElementById("eventsList");
@@ -91,6 +102,7 @@ function setHeroBackground(url) {
           </div>
         </div>
       `).join("");
+      
     }
 
     // Gallery (render)
