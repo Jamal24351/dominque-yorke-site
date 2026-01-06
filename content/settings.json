@@ -7,4 +7,10 @@
   "contactAddress": "123 Main St, Christ Church, Barbados",
   "contactPhone": "+1 (246) 555-0199",
   "contactEmail": "hello@friendsofdemocracy.bb"
+  "candidatePhoto": "/assets/images/uploads/candidate.jpg",
+  "heroBackground": "/assets/images/uploads/hero.jpg",
+  "facebookUrl": "https://facebook.com/",
+  "instagramUrl": "https://instagram.com/",
+  "tiktokUrl": "https://tiktok.com/",
+  "donateUrl": "https://example.com/donate"
 }
