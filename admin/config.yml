@@ -1,0 +1,57 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "site"
+    label: "Site Content"
+    files:
+      - label: "Settings"
+        name: "settings"
+        file: "content/settings.json"
+        format: "json"
+        fields:
+          - { label: "Candidate Name", name: "candidateName", widget: "string" }
+          - { label: "Party", name: "party", widget: "string" }
+          - { label: "Constituency", name: "constituency", widget: "string" }
+          - { label: "Hero Kicker", name: "heroKicker", widget: "string" }
+          - { label: "Hero Title Line 1", name: "heroTitleLine1", widget: "string" }
+          - { label: "Hero Title Line 2", name: "heroTitleLine2", widget: "string" }
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "text" }
+          - { label: "About Heading", name: "aboutHeading", widget: "string" }
+          - { label: "About Paragraph 1", name: "aboutP1", widget: "text" }
+          - { label: "About Paragraph 2", name: "aboutP2", widget: "text" }
+          - { label: "About Paragraph 3", name: "aboutP3", widget: "text" }
+          - { label: "Contact Address", name: "contactAddress", widget: "string" }
+          - { label: "Contact Phone", name: "contactPhone", widget: "string" }
+          - { label: "Contact Email", name: "contactEmail", widget: "string" }
+
+      - label: "Events"
+        name: "events"
+        file: "content/events.json"
+        format: "json"
+        fields:
+          - label: "Events"
+            name: "events"
+            widget: "list"
+            fields:
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Time", name: "time", widget: "string" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+      - label: "Gallery"
+        name: "gallery"
+        file: "content/gallery.json"
+        format: "json"
+        fields:
+          - label: "Images"
+            name: "images"
+            widget: "list"
+            fields:
+              - { label: "Image", name: "imageUrl", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
