@@ -1,9 +1,25 @@
-[
-  {
-    "date": "2026-11-15",
-    "time": "6:00 PM",
-    "location": "St. George's Hall",
-    "title": "Constituency Town Hall",
-    "description": "A discussion on housing rights and community development."
-  }
-]
+{
+  "events": [
+    {
+      "date": "2026-11-15",
+      "time": "6:00 PM",
+      "location": "St. George's Hall",
+      "title": "Constituency Town Hall",
+      "description": "A discussion on housing rights and community development. Free entry for all residents."
+    },
+    {
+      "date": "2026-11-22",
+      "time": "10:00 AM",
+      "location": "Oistins Bay Gardens",
+      "title": "Fish Fry Meet & Greet",
+      "description": "Join Dominque for food, music, and conversation."
+    },
+    {
+      "date": "2026-12-05",
+      "time": "4:00 PM",
+      "location": "Enterprise Coast Road",
+      "title": "Campaign Rally Launch",
+      "description": "The official launch of the campaign. Be there!"
+    }
+  ]
+}
